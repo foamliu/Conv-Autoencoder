@@ -14,7 +14,7 @@ This repository is to do convolutional autoencoder by fine-tuning SetNet with Ca
 
 We use the Cars Dataset, which contains 16,185 images of 196 classes of cars. The data is split into 8,144 training images and 8,041 testing images, where each class has been split roughly in a 50-50 split.
 
- ![image](https://github.com/foamliu/Car-Recognition/raw/master/images/random.jpg)
+ ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/random.jpg)
 
 You can get it from [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html):
 
@@ -24,6 +24,11 @@ $ wget http://imagenet.stanford.edu/internal/car196/cars_train.tgz
 $ wget http://imagenet.stanford.edu/internal/car196/cars_test.tgz
 $ wget --no-check-certificate https://ai.stanford.edu/~jkrause/cars/car_devkit.tgz
 ```
+
+## Architecture
+
+![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/segnet.jpg)
+
 
 ## ImageNet Pretrained Models
 
@@ -49,3 +54,15 @@ Download [pre-trained model] into "models" folder then run:
 ```bash
 $ python demo.py --i [image_path]
 ```
+
+#### Sample 1
+
+![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/sample-1.jpg)
+ 
+#### Sample 2
+
+![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/sample-2.jpg)
+ 
+#### Sample 3
+
+![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/sample-3.jpg)
