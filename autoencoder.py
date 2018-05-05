@@ -5,7 +5,7 @@ from keras.layers import Input, Dense, Conv2D, MaxPooling2D, UpSampling2D, ZeroP
 from utils import matting_loss
 
 
-def matting_model(img_rows, img_cols, channel=1, num_classes=None):
+def autoencoder(img_rows, img_cols, channel=1, num_classes=None):
     model = Sequential()
     model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel)))
     model.add(Conv2D(64, (3, 3), activation='relu'))

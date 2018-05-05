@@ -3,7 +3,7 @@ import os
 import cv2 as cv
 import keras
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
-import matting
+import autoencoder
 import transfer
 from console_progressbar import ProgressBar
 
@@ -56,10 +56,10 @@ if __name__ == '__main__':
     # Load our model
     model_path = 'model_weights.h5'
     if os.path.exists(model_path):
-        model = matting.matting_model(img_rows, img_cols, channel)
+        model = autoencoder.autoencoder(img_rows, img_cols, channel)
         model.load_weights(model_path)
     else:
-        model = transfer.matting_model(img_rows, img_cols, channel)
+        model = transfer.autoencoder(img_rows, img_cols, channel)
 
     print(model.summary())
 

@@ -25,6 +25,11 @@ $ wget http://imagenet.stanford.edu/internal/car196/cars_test.tgz
 $ wget --no-check-certificate https://ai.stanford.edu/~jkrause/cars/car_devkit.tgz
 ```
 
+## ImageNet Pretrained Models
+
+Download [VGG16](https://github.com/fchollet/deep-learning-models/releases/download/v0.1/vgg16_weights_tf_dim_ordering_tf_kernels.h5) into models folder.
+
+
 ## Usage
 
 ### Data Pre-processing
@@ -36,4 +41,11 @@ $ python pre-process.py
 ### Train
 ```bash
 $ python train.py
+```
+
+### Demo
+Download [pre-trained model] into "models" folder then run:
+
+```bash
+$ python demo.py --i [image_path]
 ```

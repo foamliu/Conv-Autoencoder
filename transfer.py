@@ -4,7 +4,7 @@ from keras.optimizers import SGD
 from utils import matting_loss
 
 
-def matting_model(img_rows, img_cols, channel=3):
+def autoencoder(img_rows, img_cols, channel=3):
     model = vgg16_model(img_rows, img_cols, channel)
     model.layers.pop()  # dense_4
     model.layers.pop()  # dropout_2
@@ -44,5 +44,5 @@ def matting_model(img_rows, img_cols, channel=3):
 
 
 if __name__ == '__main__':
-    model = matting_model(224, 244, 3)
+    model = autoencoder(224, 244, 3)
     model.save_weights('model_weights.h5')
