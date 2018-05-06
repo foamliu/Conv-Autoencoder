@@ -101,6 +101,45 @@ def decoder(model):
 
 def encoder(model, img_rows, img_cols, channel):
     model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel)))
+    model.add(Conv2D(64, (3, 3), activation='relu', name='conv1_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(64, (3, 3), activation='relu', name='conv1_2'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(128, (3, 3), activation='relu', name='conv2_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(128, (3, 3), activation='relu', name='conv2_2'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(256, (3, 3), activation='relu', name='conv3_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(256, (3, 3), activation='relu', name='conv3_2'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(256, (3, 3), activation='relu', name='conv3_3'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv4_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv4_2'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv4_3'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_2'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_3'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+    return model
+
+
+def encoder_bn(model, img_rows, img_cols, channel):
+    model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel)))
     model.add(Conv2D(64, (3, 3), name='conv1_1'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
