@@ -7,4 +7,4 @@ if __name__ == '__main__':
     img_rows, img_cols = 224, 224
     channel = 3
     model = autoencoder(img_rows, img_cols, channel)
-    plot_model(model, to_file='model.png')
+    plot_model(model, to_file='model.png', show_layer_names=True, show_shapes=True)
