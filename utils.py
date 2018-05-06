@@ -1,7 +1,9 @@
-import keras.backend as K
 import numpy as np
 import os
 import cv2 as cv
+import keras.backend as K
+from keras.layers import Conv2D, UpSampling2D, BatchNormalization, Activation, ZeroPadding2D, MaxPooling2D
+from keras.optimizers import SGD
 from console_progressbar import ProgressBar
 
 
@@ -46,3 +48,97 @@ def load_data():
                 pb.print_progress_bar((i + 2) * 100 / num_samples)
 
     return x_train, y_train, x_valid, y_valid
+
+
+def decoder(model):
+    model.add(Conv2D(512, (1, 1), padding='same', name='deconv6'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(UpSampling2D(size=(2, 2)))
+
+    model.add(Conv2D(512, (5, 5), padding='same', name='deconv5_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (5, 5), padding='same', name='deconv5_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(UpSampling2D(size=(2, 2)))
+
+    model.add(Conv2D(256, (5, 5), padding='same', name='deconv4_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (5, 5), padding='same', name='deconv4_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(UpSampling2D(size=(2, 2)))
+
+    model.add(Conv2D(128, (5, 5), padding='same', name='deconv3_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(128, (5, 5), padding='same', name='deconv3_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(UpSampling2D(size=(2, 2)))
+
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv2_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv2_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(UpSampling2D(size=(2, 2)))
+
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv1_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv1_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+
+    model.add(Conv2D(1, (5, 5), activation='sigmoid', padding='same', name='pred'))
+    return model
+
+
+def encoder(model, img_rows, img_cols, channel):
+    model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel)))
+    model.add(Conv2D(64, (3, 3), activation='relu', name='conv1_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(64, (3, 3), activation='relu', name='conv1_2'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(128, (3, 3), activation='relu', name='conv2_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(128, (3, 3), activation='relu', name='conv2_2'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(256, (3, 3), activation='relu', name='conv3_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(256, (3, 3), activation='relu', name='conv3_2'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(256, (3, 3), activation='relu', name='conv3_3'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv4_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv4_2'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv4_3'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_1'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_2'))
+    model.add(ZeroPadding2D((1, 1)))
+    model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_3'))
+    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+
+
+def compile(model):
+    # sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.99, nesterov=True)
+    # model.compile(optimizer=sgd, loss=custom_loss)
+    model.compile(optimizer='adadelta', loss=custom_loss)
+    return model
