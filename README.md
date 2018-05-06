@@ -56,7 +56,7 @@ $ tensorboard --logdir path_to_current_dir/logs
 ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/train.jpg)
 
 ### Demo
-Download [pre-trained model] into "models" folder then run:
+Download pre-trained [model](https://github.com/foamliu/Conv-Autoencoder/releases/download/v1.0/model.226-0.06.hdf5) weights into "models" folder then run:
 
 ```bash
 $ python demo.py --image images/samples/03198.jpg
