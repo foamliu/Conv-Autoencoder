@@ -40,8 +40,7 @@ def save_data(usage, fnames, bboxes):
         x2 = min(x2 + margin, width)
         y2 = min(y2 + margin, height)
         # print(fname)
-        if i % 16 == 0:
-            pb.print_progress_bar((i + 1) * 100 / num_samples)
+        pb.print_progress_bar((i + 1) * 100 / num_samples)
 
         if i in train_indexes:
             dst_folder = 'data/train'
@@ -51,6 +50,7 @@ def save_data(usage, fnames, bboxes):
         crop_image = src_image[y1:y2, x1:x2]
         dst_img = cv.resize(src=crop_image, dsize=(img_height, img_width))
         cv.imwrite(dst_path, dst_img)
+    print('\n')
 
 
 def process_data(usage):
