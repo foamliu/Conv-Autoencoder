@@ -2,6 +2,7 @@ from autoencoder import autoencoder
 import cv2 as cv
 import numpy as np
 import argparse
+import keras.backend as K
 
 if __name__ == '__main__':
     img_rows, img_cols = 224, 224
@@ -10,6 +11,7 @@ if __name__ == '__main__':
     model_weights_path = 'models/model.226-0.06.hdf5'
     model = autoencoder(img_rows, img_cols, channel)
     model.load_weights(model_weights_path)
+    print(model.summary())
 
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", help="path to the image file")
@@ -36,5 +38,7 @@ if __name__ == '__main__':
     cv.imwrite('out.jpg', rep)
     cv.waitKey(0)
     cv.destroyAllWindows()
+
+    K.clear_session()
 
 
