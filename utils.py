@@ -161,6 +161,7 @@ def encoder(model, img_rows, img_cols, channel):
     model.add(BatchNormalization())
     model.add(Activation('relu'))
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+    return model
 
 
 def compile(model):
