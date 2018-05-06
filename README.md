@@ -48,6 +48,13 @@ $ python pre-process.py
 $ python train.py
 ```
 
+If you want to visualize during training, run in your terminal:
+```bash
+$ tensorboard --logdir path_to_current_dir/logs
+```
+
+![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/train.jpg)
+
 ### Demo
 Download [pre-trained model] into "models" folder then run:
 
