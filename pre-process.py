@@ -109,6 +109,6 @@ if __name__ == '__main__':
     # process_data('test')
 
     # clean up
-    shutil.rmtree('cars_train')
-    shutil.rmtree('cars_test')
-    shutil.rmtree('devkit')
+    # shutil.rmtree('cars_train')
+    # shutil.rmtree('cars_test')
+    # shutil.rmtree('devkit')
