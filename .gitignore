@@ -1,3 +1,11 @@
 .idea/
 __pycache__/
 models/
+car_devkit.tgz
+cars_test.tgz
+cars_test/
+cars_train.tgz
+cars_train/
+data/
+devkit/
+logs/
