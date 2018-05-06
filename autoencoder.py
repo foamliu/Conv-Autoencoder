@@ -1,6 +1,6 @@
 from keras.models import Sequential
 from keras.optimizers import SGD
-from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, ZeroPadding2D
+from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, ZeroPadding2D, BatchNormalization, Activation
 from utils import custom_loss
 
 
@@ -44,27 +44,49 @@ def autoencoder(img_rows, img_cols, channel=1):
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
     # Decoder
-    model.add(Conv2D(512, (1, 1), activation='relu', padding='same', name='deconv6'))
+    model.add(Conv2D(512, (1, 1), padding='same', name='deconv6'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(512, (5, 5), activation='relu', padding='same', name='deconv5_1'))
-    model.add(Conv2D(512, (5, 5), activation='relu', padding='same', name='deconv5_2'))
+    model.add(Conv2D(512, (5, 5), padding='same', name='deconv5_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(512, (5, 5), padding='same', name='deconv5_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(256, (5, 5), activation='relu', padding='same', name='deconv4_1'))
-    model.add(Conv2D(256, (5, 5), activation='relu', padding='same', name='deconv4_2'))
+    model.add(Conv2D(256, (5, 5), padding='same', name='deconv4_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(256, (5, 5), padding='same', name='deconv4_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(128, (5, 5), activation='relu', padding='same', name='deconv3_1'))
-    model.add(Conv2D(128, (5, 5), activation='relu', padding='same', name='deconv3_2'))
+    model.add(Conv2D(128, (5, 5), padding='same', name='deconv3_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(128, (5, 5), padding='same', name='deconv3_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(64, (5, 5), activation='relu', padding='same', name='deconv2_1'))
-    model.add(Conv2D(64, (5, 5), activation='relu', padding='same', name='deconv2_2'))
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv2_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv2_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(64, (5, 5), activation='relu', padding='same', name='deconv1_1'))
-    model.add(Conv2D(64, (5, 5), activation='relu', padding='same', name='deconv1_2'))
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv1_1'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(Conv2D(64, (5, 5), padding='same', name='deconv1_2'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
 
     model.add(Conv2D(1, (5, 5), activation='sigmoid', padding='same', name='pred'))
 
