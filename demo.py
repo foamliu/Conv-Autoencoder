@@ -18,9 +18,10 @@ if __name__ == '__main__':
     args = vars(ap.parse_args())
 
     filename = args["image"]
-    print('Start processing image: {}'.format(filename))
     if filename is None:
         filename = 'images/samples/07647.jpg'
+
+    print('Start processing image: {}'.format(filename))
 
     bgr_img = cv.imread(filename)
     rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
