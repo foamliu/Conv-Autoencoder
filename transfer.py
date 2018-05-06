@@ -67,8 +67,8 @@ def autoencoder(img_rows, img_cols, channel=3):
 
     print(model.summary())
 
-    # sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(optimizer='adadelta', loss=custom_loss)
+    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.99, nesterov=True)
+    model.compile(optimizer=sgd, loss=custom_loss)
     return model
 
 

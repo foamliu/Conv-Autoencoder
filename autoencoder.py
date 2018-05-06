@@ -91,6 +91,6 @@ def autoencoder(img_rows, img_cols, channel=1):
     model.add(Conv2D(1, (5, 5), activation='sigmoid', padding='same', name='pred'))
 
     # Learning rate is changed to 0.001
-    # sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(optimizer='adadelta', loss=custom_loss)
+    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.99, nesterov=True)
+    model.compile(optimizer=sgd, loss=custom_loss)
     return model
