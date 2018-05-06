@@ -13,7 +13,7 @@ def custom_loss(y_true, y_pred):
 
 def load_data():
     # (num_samples, 224, 224, 3)
-    num_samples = 8146
+    num_samples = 8144
     train_split = 0.8
     batch_size = 16
     num_train = int(round(num_samples * train_split))
