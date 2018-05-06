@@ -5,7 +5,7 @@ import cv2 as cv
 from console_progressbar import ProgressBar
 
 
-def matting_loss(y_true, y_pred):
+def custom_loss(y_true, y_pred):
     epsilon = 1e-6
     epsilon_sqr = K.constant(epsilon ** 2)
     return K.mean(K.sqrt(K.square(y_pred - y_true) + epsilon_sqr))
@@ -15,6 +15,7 @@ def load_data():
     # (num_samples, 224, 224, 3)
     num_samples = 8146
     train_split = 0.8
+    batch_size = 16
     num_train = int(round(num_samples * train_split))
     num_valid = num_samples - num_train
     pb = ProgressBar(total=100, prefix='Loading data', suffix='', decimals=3, length=50, fill='=')

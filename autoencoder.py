@@ -2,7 +2,7 @@ from keras.models import Sequential
 from keras.optimizers import SGD
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, UpSampling2D, ZeroPadding2D, Dropout, Flatten, merge, \
     Reshape, Activation
-from utils import matting_loss
+from utils import custom_loss
 
 
 def autoencoder(img_rows, img_cols, channel=1, num_classes=None):
@@ -63,5 +63,5 @@ def autoencoder(img_rows, img_cols, channel=1, num_classes=None):
 
     # Learning rate is changed to 0.001
     sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(optimizer=sgd, loss=matting_loss)
+    model.compile(optimizer=sgd, loss=custom_loss)
     return model

@@ -1,7 +1,7 @@
 from vgg16 import vgg16_model
 from keras.layers import Conv2D, UpSampling2D
 from keras.optimizers import SGD
-from utils import matting_loss
+from utils import custom_loss
 
 
 def autoencoder(img_rows, img_cols, channel=3):
@@ -39,7 +39,7 @@ def autoencoder(img_rows, img_cols, channel=3):
     print(model.summary())
 
     sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(optimizer=sgd, loss=matting_loss)
+    model.compile(optimizer=sgd, loss=custom_loss)
     return model
 
 

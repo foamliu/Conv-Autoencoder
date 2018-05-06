@@ -52,7 +52,7 @@ $ python train.py
 Download [pre-trained model] into "models" folder then run:
 
 ```bash
-$ python demo.py --i [image_path]
+$ python demo.py --image images/samples/03198.jpg
 ```
 
 #### Sample 1

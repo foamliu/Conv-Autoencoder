@@ -7,7 +7,7 @@ if __name__ == '__main__':
     img_rows, img_cols = 224, 224
     channel = 3
 
-    model_weights_path = 'models/model.362-0.06.hdf5'
+    model_weights_path = 'models/model.226-0.06.hdf5'
     model = autoencoder(img_rows, img_cols, channel)
     model.load_weights(model_weights_path)
 
@@ -16,8 +16,9 @@ if __name__ == '__main__':
     args = vars(ap.parse_args())
 
     filename = args["image"]
+    print('Start processing image: {}'.format(filename))
     if filename is None:
-        filename = 'images/samples/05509.jpg'
+        filename = 'images/samples/07647.jpg'
 
     bgr_img = cv.imread(filename)
     rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
