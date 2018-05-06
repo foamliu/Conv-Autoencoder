@@ -51,51 +51,62 @@ def load_data():
 
 
 def decoder(model):
-    model.add(Conv2D(512, (1, 1), padding='same', name='deconv6'))
+    # model.add(Conv2D(512, (1, 1), padding='same', name='deconv6'))
+    # model.add(BatchNormalization())
+    # model.add(Activation('relu'))
+    model.add(UpSampling2D(size=(2, 2)))
+
+    model.add(
+        Conv2D(512, (5, 5), padding='same', name='deconv5_1', kernel_initializer='he_normal', bias_initializer='zeros'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(
+        Conv2D(512, (5, 5), padding='same', name='deconv5_2', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(512, (5, 5), padding='same', name='deconv5_1'))
+    model.add(
+        Conv2D(256, (5, 5), padding='same', name='deconv4_1', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
-    model.add(Conv2D(512, (5, 5), padding='same', name='deconv5_2'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(UpSampling2D(size=(2, 2)))
-
-    model.add(Conv2D(256, (5, 5), padding='same', name='deconv4_1'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(Conv2D(256, (5, 5), padding='same', name='deconv4_2'))
+    model.add(
+        Conv2D(256, (5, 5), padding='same', name='deconv4_2', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(128, (5, 5), padding='same', name='deconv3_1'))
+    model.add(
+        Conv2D(128, (5, 5), padding='same', name='deconv3_1', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
-    model.add(Conv2D(128, (5, 5), padding='same', name='deconv3_2'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(UpSampling2D(size=(2, 2)))
-
-    model.add(Conv2D(64, (5, 5), padding='same', name='deconv2_1'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(Conv2D(64, (5, 5), padding='same', name='deconv2_2'))
+    model.add(
+        Conv2D(128, (5, 5), padding='same', name='deconv3_2', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
-    model.add(Conv2D(64, (5, 5), padding='same', name='deconv1_1'))
+    model.add(
+        Conv2D(64, (5, 5), padding='same', name='deconv2_1', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
-    model.add(Conv2D(64, (5, 5), padding='same', name='deconv1_2'))
+    model.add(
+        Conv2D(64, (5, 5), padding='same', name='deconv2_2', kernel_initializer='he_normal', bias_initializer='zeros'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(UpSampling2D(size=(2, 2)))
+
+    model.add(
+        Conv2D(64, (5, 5), padding='same', name='deconv1_1', kernel_initializer='he_normal', bias_initializer='zeros'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
+    model.add(
+        Conv2D(64, (5, 5), padding='same', name='deconv1_2', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
     model.add(Activation('relu'))
 
-    model.add(Conv2D(1, (5, 5), activation='sigmoid', padding='same', name='pred'))
+    model.add(Conv2D(1, (5, 5), activation='sigmoid', padding='same', name='pred', kernel_initializer='he_normal',
+                     bias_initializer='zeros'))
     return model
 
 
@@ -204,6 +215,6 @@ def encoder_bn(model, img_rows, img_cols, channel):
 
 
 def compile(model):
-    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.99, nesterov=True)
-    model.compile(optimizer=sgd, loss=custom_loss)
+    # sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.99, nesterov=True)
+    model.compile(optimizer='nadam', loss=custom_loss)
     return model
