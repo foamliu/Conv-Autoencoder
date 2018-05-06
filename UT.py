@@ -3,7 +3,7 @@ import numpy as np
 import cv2 as cv
 import random
 import keras.backend as K
-from utils import  custom_loss
+from utils import custom_loss
 
 i1 = random.randint(1, 8041)
 i2 = random.randint(1, 8041)
@@ -17,7 +17,6 @@ y_true = np.array(y_true, np.float32)
 bgr_img2 = cv.imread(image2)
 y_pred = cv.cvtColor(bgr_img2, cv.COLOR_BGR2GRAY)
 y_pred = np.array(y_pred, np.float32)
-
 
 loss = custom_loss(y_true, y_pred)
 ret = K.eval(loss)

@@ -46,5 +46,3 @@ def load_data():
                 pb.print_progress_bar((i + 2) * 100 / num_samples)
 
     return x_train, y_train, x_valid, y_valid
-
-
