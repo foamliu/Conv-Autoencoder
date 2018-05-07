@@ -1,5 +1,5 @@
 # dependency: pip install pydot & brew install graphviz
-from autoencoder import autoencoder
+from new_start import autoencoder
 from keras.utils import plot_model
 
 

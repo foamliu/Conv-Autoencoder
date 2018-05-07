@@ -47,12 +47,12 @@ def load_data():
 
             i = i_train + i_valid
             if i % batch_size == 0:
-                pb.print_progress_bar((i + 1) * 100 / num_samples)
+                pb.print_progress_bar(i * 100 / num_samples)
 
     return x_train, y_train, x_valid, y_valid
 
 
-def decoder(model):
+def build_decoder(model):
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
@@ -86,10 +86,9 @@ def decoder(model):
 
     model.add(Conv2D(1, (5, 5), activation='sigmoid', padding='same', name='pred', kernel_initializer='he_normal',
                      bias_initializer='zeros'))
-    return model
 
 
-def encoder(model, img_rows, img_cols, channel):
+def build_encoder(model, img_rows, img_cols, channel):
     model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel), name='input'))
     model.add(Conv2D(64, (3, 3), activation='relu', name='conv1_1'))
     model.add(ZeroPadding2D((1, 1)))
@@ -125,72 +124,72 @@ def encoder(model, img_rows, img_cols, channel):
     model.add(ZeroPadding2D((1, 1)))
     model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_3'))
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-    return model
 
 
-def encoder_bn(model, img_rows, img_cols, channel):
-    model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel)))
-    model.add(Conv2D(64, (3, 3), name='conv1_1'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(64, (3, 3), name='conv1_2'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
 
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(128, (3, 3), name='conv2_1'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(128, (3, 3), name='conv2_2'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(256, (3, 3), name='conv3_1'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(256, (3, 3), name='conv3_2'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(256, (3, 3), name='conv3_3'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(512, (3, 3), name='conv4_1'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(512, (3, 3), name='conv4_2'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(512, (3, 3), name='conv4_3'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(512, (3, 3), name='conv5_1'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(512, (3, 3), name='conv5_2'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(ZeroPadding2D((1, 1)))
-    model.add(Conv2D(512, (3, 3), name='conv5_3'))
-    model.add(BatchNormalization())
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-    return model
+# def encoder_bn(model, img_rows, img_cols, channel):
+#     model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel)))
+#     model.add(Conv2D(64, (3, 3), name='conv1_1'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(64, (3, 3), name='conv1_2'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+#
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(128, (3, 3), name='conv2_1'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(128, (3, 3), name='conv2_2'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+#
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(256, (3, 3), name='conv3_1'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(256, (3, 3), name='conv3_2'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(256, (3, 3), name='conv3_3'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+#
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(512, (3, 3), name='conv4_1'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(512, (3, 3), name='conv4_2'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(512, (3, 3), name='conv4_3'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+#
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(512, (3, 3), name='conv5_1'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(512, (3, 3), name='conv5_2'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(ZeroPadding2D((1, 1)))
+#     model.add(Conv2D(512, (3, 3), name='conv5_3'))
+#     model.add(BatchNormalization())
+#     model.add(Activation('relu'))
+#     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
+#     return model
 
 
 def compile(model):

@@ -3,12 +3,12 @@
 from keras.layers import Dense, Dropout, Flatten
 from keras.models import Sequential
 
-from utils import encoder
+from utils import build_encoder
 
 
 def vgg16_model(img_rows, img_cols, channel=3):
     model = Sequential()
-    model = encoder(model, img_rows, img_cols, channel)
+    build_encoder(model, img_rows, img_cols, channel)
 
     # Add Fully Connected Layer
     model.add(Flatten())

@@ -4,7 +4,7 @@ import cv2 as cv
 import keras.backend as K
 import numpy as np
 
-from autoencoder import autoencoder
+from new_start import autoencoder
 
 if __name__ == '__main__':
     img_rows, img_cols = 224, 224
