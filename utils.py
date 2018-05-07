@@ -1,10 +1,10 @@
-import numpy as np
 import os
+
 import cv2 as cv
 import keras.backend as K
-from keras.layers import Conv2D, UpSampling2D, BatchNormalization, Activation, ZeroPadding2D, MaxPooling2D
-from keras.optimizers import SGD
+import numpy as np
 from console_progressbar import ProgressBar
+from keras.layers import Conv2D, UpSampling2D, BatchNormalization, Activation, ZeroPadding2D, MaxPooling2D
 
 
 def custom_loss(y_true, y_pred):
@@ -14,7 +14,7 @@ def custom_loss(y_true, y_pred):
 
 
 def load_data():
-    # (num_samples, 224, 224, 3)
+    # (num_samples, 224, 224, 4)
     num_samples = 8144
     train_split = 0.8
     batch_size = 16
@@ -22,9 +22,9 @@ def load_data():
     num_valid = num_samples - num_train
     pb = ProgressBar(total=100, prefix='Loading data', suffix='', decimals=3, length=50, fill='=')
 
-    x_train = np.empty((num_train, 224, 224, 3), dtype=np.float32)
+    x_train = np.empty((num_train, 224, 224, 4), dtype=np.float32)
     y_train = np.empty((num_train, 224, 224, 1), dtype=np.float32)
-    x_valid = np.empty((num_valid, 224, 224, 3), dtype=np.float32)
+    x_valid = np.empty((num_valid, 224, 224, 4), dtype=np.float32)
     y_valid = np.empty((num_valid, 224, 224, 1), dtype=np.float32)
 
     i_train = i_valid = 0
@@ -35,11 +35,13 @@ def load_data():
             gray_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2GRAY)
             rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
             if filename.startswith('data/train'):
-                x_train[i_train, :, :, :] = rgb_img / 255.
+                x_train[i_train, :, :, 0:3] = rgb_img / 255.
+                x_train[i_train, :, :, 3] = np.random.uniform(0, 1, (224, 224))
                 y_train[i_train, :, :, 0] = gray_img / 255.
                 i_train += 1
             else:
-                x_valid[i_valid, :, :, :] = rgb_img / 255.
+                x_valid[i_valid, :, :, 0:3] = rgb_img / 255.
+                x_valid[i_train, :, :, 3] = np.random.uniform(0, 1, (224, 224))
                 y_valid[i_valid, :, :, 0] = gray_img / 255.
                 i_valid += 1
 
@@ -51,9 +53,6 @@ def load_data():
 
 
 def decoder(model):
-    # model.add(Conv2D(512, (1, 1), padding='same', name='deconv6'))
-    # model.add(BatchNormalization())
-    # model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
@@ -111,7 +110,7 @@ def decoder(model):
 
 
 def encoder(model, img_rows, img_cols, channel):
-    model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel)))
+    model.add(ZeroPadding2D((1, 1), input_shape=(img_rows, img_cols, channel), name='input'))
     model.add(Conv2D(64, (3, 3), activation='relu', name='conv1_1'))
     model.add(ZeroPadding2D((1, 1)))
     model.add(Conv2D(64, (3, 3), activation='relu', name='conv1_2'))

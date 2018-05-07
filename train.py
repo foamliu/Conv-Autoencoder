@@ -9,7 +9,7 @@ from utils import load_data
 
 if __name__ == '__main__':
     img_rows, img_cols = 224, 224
-    channel = 3
+    channel = 4
     batch_size = 16
     epochs = 1000
     patience = 50

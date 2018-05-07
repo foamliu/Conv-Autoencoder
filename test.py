@@ -1,13 +1,10 @@
 import cv2 as cv
-import numpy as np
 import keras.backend as K
+import numpy as np
+
 from utils import custom_loss
 
-
 if __name__ == '__main__':
-    img_rows, img_cols = 224, 224
-    channel = 3
-
     file_id = '07647'
     filename = 'images/samples/{}.jpg'.format(file_id)
     bgr_img = cv.imread(filename)

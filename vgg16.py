@@ -6,7 +6,7 @@ from keras.models import Sequential
 from utils import encoder
 
 
-def vgg16_model(img_rows, img_cols, channel=1, num_classes=None):
+def vgg16_model(img_rows, img_cols, channel=3):
     model = Sequential()
     model = encoder(model, img_rows, img_cols, channel)
 

@@ -1,12 +1,14 @@
-from autoencoder import autoencoder
-import cv2 as cv
-import numpy as np
 import argparse
+
+import cv2 as cv
 import keras.backend as K
+import numpy as np
+
+from autoencoder import autoencoder
 
 if __name__ == '__main__':
     img_rows, img_cols = 224, 224
-    channel = 3
+    channel = 4
 
     model_weights_path = 'models/model.226-0.06.hdf5'
     model = autoencoder(img_rows, img_cols, channel)
@@ -23,10 +25,13 @@ if __name__ == '__main__':
 
     print('Start processing image: {}'.format(filename))
 
+    x_test = np.empty((1, 224, 224, 4), dtype=np.float32)
     bgr_img = cv.imread(filename)
     rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
     rgb_img = rgb_img / 255.
-    rgb_img = np.expand_dims(rgb_img, 0)
+    x_test[0, :, :, 0:3] = rgb_img
+    x_test[0, :, :, 3] = np.random.uniform(0, 1, (224, 224))
+    # rgb_img = np.expand_dims(rgb_img, 0)
 
     rep = model.predict(rgb_img)
     print(rep.shape)
@@ -41,5 +46,3 @@ if __name__ == '__main__':
     cv.destroyAllWindows()
 
     K.clear_session()
-
-
