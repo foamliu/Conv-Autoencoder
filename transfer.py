@@ -45,7 +45,6 @@ def autoencoder(img_rows, img_cols, channel=4):
     new_model.add(new_conv1_1)
     new_conv1_1.set_weights([new_weights, new_biases])
 
-
     for i in range(2, len(old_layers)):
         new_model.add(old_layers[i])
 
@@ -55,7 +54,7 @@ def autoencoder(img_rows, img_cols, channel=4):
     print(new_model.summary())
 
     compile(new_model)
-    return old_model
+    return new_model
 
 
 if __name__ == '__main__':
