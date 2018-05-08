@@ -53,42 +53,38 @@ def load_data():
 
 
 def build_decoder(model):
-    model.add(Conv2D(4096, (7, 7), activation='relu',padding='valid', name='conv6'))
+    model.add(Conv2D(4096, (7, 7), activation='relu', padding='valid', name='conv6'))
+    model.add(BatchNormalization())
+    model.add(UpSampling2D(size=(7, 7)))
 
     model.add(
-        Conv2D(512, (1, 1), padding='same', name='deconv6', kernel_initializer='he_normal', bias_initializer='zeros'))
+        Conv2D(512, (1, 1), activation='relu', padding='same', name='deconv6', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
-    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
-        Conv2D(512, (5, 5), padding='same', name='deconv5', kernel_initializer='he_normal', bias_initializer='zeros'))
+        Conv2D(512, (5, 5), activation='relu', padding='same', name='deconv5', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
-    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
-        Conv2D(256, (5, 5), padding='same', name='deconv4', kernel_initializer='he_normal', bias_initializer='zeros'))
+        Conv2D(256, (5, 5), activation='relu', padding='same', name='deconv4', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
-    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
-        Conv2D(128, (5, 5), padding='same', name='deconv3', kernel_initializer='he_normal', bias_initializer='zeros'))
+        Conv2D(128, (5, 5), activation='relu', padding='same', name='deconv3', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
-    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
-        Conv2D(64, (5, 5), padding='same', name='deconv2', kernel_initializer='he_normal', bias_initializer='zeros'))
+        Conv2D(64, (5, 5), activation='relu', padding='same', name='deconv2', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
-    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
-        Conv2D(64, (5, 5), padding='same', name='deconv1', kernel_initializer='he_normal', bias_initializer='zeros'))
+        Conv2D(64, (5, 5), activation='relu', padding='same', name='deconv1', kernel_initializer='he_normal', bias_initializer='zeros'))
     model.add(BatchNormalization())
-    model.add(Activation('relu'))
 
     model.add(Conv2D(1, (5, 5), activation='sigmoid', padding='same', name='pred', kernel_initializer='he_normal',
                      bias_initializer='zeros'))

@@ -51,7 +51,7 @@ def migrate_model(img_rows, img_cols, channel=4):
 
 if __name__ == '__main__':
     model = migrate_model(224, 224, 4)
-    #print(model.summary())
+    print(model.summary())
     model.save_weights('models/model_weights.h5')
 
     K.clear_session()
