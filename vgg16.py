@@ -11,12 +11,12 @@ def vgg16_model(img_rows, img_cols, channel=3):
     build_encoder(model, img_rows, img_cols, channel)
 
     # Add Fully Connected Layer
-    model.add(Flatten())
-    model.add(Dense(4096, activation='relu'))
+    model.add(Flatten(name='flatten'))
+    model.add(Dense(4096, activation='relu', name='dense1'))
     model.add(Dropout(0.5))
-    model.add(Dense(4096, activation='relu'))
+    model.add(Dense(4096, activation='relu', name='dense2'))
     model.add(Dropout(0.5))
-    model.add(Dense(1000, activation='softmax'))
+    model.add(Dense(1000, activation='softmax', name='softmax'))
 
     # Loads ImageNet pre-trained data
     weights_path = 'models/vgg16_weights_tf_dim_ordering_tf_kernels.h5'

@@ -53,6 +53,12 @@ def load_data():
 
 
 def build_decoder(model):
+    model.add(Conv2D(4096, (7, 7), activation='relu',padding='valid', name='conv6'))
+
+    model.add(
+        Conv2D(512, (1, 1), padding='same', name='deconv6', kernel_initializer='he_normal', bias_initializer='zeros'))
+    model.add(BatchNormalization())
+    model.add(Activation('relu'))
     model.add(UpSampling2D(size=(2, 2)))
 
     model.add(
@@ -124,7 +130,6 @@ def build_encoder(model, img_rows, img_cols, channel):
     model.add(ZeroPadding2D((1, 1)))
     model.add(Conv2D(512, (3, 3), activation='relu', name='conv5_3'))
     model.add(MaxPooling2D((2, 2), strides=(2, 2)))
-
 
 
 # def encoder_bn(model, img_rows, img_cols, channel):
