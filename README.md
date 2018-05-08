@@ -53,7 +53,7 @@ If you want to visualize during training, run in your terminal:
 $ tensorboard --logdir path_to_current_dir/logs
 ```
 
-![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/train.jpg)
+![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/nadam.png)
 
 ### Demo
 Download pre-trained [model](https://github.com/foamliu/Conv-Autoencoder/releases/download/v1.0/model.226-0.06.hdf5) weights into "models" folder then run:
