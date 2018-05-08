@@ -53,9 +53,9 @@ def load_data():
 
 
 def build_decoder(model):
-    model.add(Conv2D(4096, (7, 7), activation='relu', padding='valid', name='conv6'))
-    model.add(BatchNormalization())
-    model.add(UpSampling2D(size=(7, 7)))
+    # model.add(Conv2D(4096, (7, 7), activation='relu', padding='valid', name='conv6'))
+    # model.add(BatchNormalization())
+    # model.add(UpSampling2D(size=(7, 7)))
 
     model.add(
         Conv2D(512, (1, 1), activation='relu', padding='same', name='deconv6', kernel_initializer='he_normal', bias_initializer='zeros'))
