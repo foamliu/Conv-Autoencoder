@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import tarfile
-import scipy.io
-import numpy as np
 import os
-import cv2 as cv
-import shutil
 import random
+import tarfile
+
+import cv2 as cv
+import numpy as np
+import scipy.io
 from console_progressbar import ProgressBar
 
 

@@ -18,32 +18,32 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", help="path to the image file")
     args = vars(ap.parse_args())
-
-    car_id = '07647'
     filename = args["image"]
     if filename is None:
-        filename = 'images/samples/{}.jpg'.format(car_id)
+        car_ids = ['03198', '07647', '05509']
+        for car_id in car_ids:
+            filename = 'images/{}.jpg'.format(car_id)
 
-    print('Start processing image: {}'.format(filename))
+            print('Start processing image: {}'.format(filename))
 
-    x_test = np.empty((1, 224, 224, 4), dtype=np.float32)
-    bgr_img = cv.imread(filename)
-    rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
-    rgb_img = rgb_img / 255.
-    x_test[0, :, :, 0:3] = rgb_img
-    x_test[0, :, :, 3] = np.random.uniform(0, 1, (224, 224))
-    # rgb_img = np.expand_dims(rgb_img, 0)
+            x_test = np.empty((1, 224, 224, 4), dtype=np.float32)
+            bgr_img = cv.imread(filename)
+            rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
+            rgb_img = rgb_img / 255.
+            x_test[0, :, :, 0:3] = rgb_img
+            x_test[0, :, :, 3] = np.random.uniform(0, 1, (224, 224))
+            # rgb_img = np.expand_dims(rgb_img, 0)
 
-    rep = model.predict(x_test)
-    print(rep.shape)
+            rep = model.predict(x_test)
+            print(rep.shape)
 
-    rep = np.reshape(rep, (224, 224))
-    rep = rep * 255.0
-    rep = rep.astype(np.uint8)
-    print(rep)
-    cv.imshow('rep', rep)
-    cv.imwrite('images/samples/{}_out.jpg'.format(car_id), rep)
-    cv.waitKey(0)
-    cv.destroyAllWindows()
+            rep = np.reshape(rep, (224, 224))
+            rep = rep * 255.0
+            rep = rep.astype(np.uint8)
+            print(rep)
+            cv.imshow('rep', rep)
+            cv.imwrite('images/{}_out.jpg'.format(car_id), rep)
+            cv.waitKey(0)
+            cv.destroyAllWindows()
 
     K.clear_session()
