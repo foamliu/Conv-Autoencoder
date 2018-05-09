@@ -4,7 +4,7 @@ import cv2 as cv
 import keras.backend as K
 import numpy as np
 from console_progressbar import ProgressBar
-from keras.layers import Conv2D, UpSampling2D, BatchNormalization, Activation, ZeroPadding2D, MaxPooling2D
+from keras.layers import Conv2D, UpSampling2D, BatchNormalization, ZeroPadding2D, MaxPooling2D
 
 
 def custom_loss(y_true, y_pred):
