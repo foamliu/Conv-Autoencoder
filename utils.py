@@ -4,6 +4,7 @@ import cv2 as cv
 import keras.backend as K
 import numpy as np
 from console_progressbar import ProgressBar
+from keras.optimizers import SGD
 
 
 def custom_loss(y_true, y_pred):
@@ -52,6 +53,7 @@ def load_data():
 
 
 def do_compile(model):
-    # sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.99, nesterov=True)
-    model.compile(optimizer='nadam', loss=custom_loss)
+    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.99, nesterov=True)
+    # model.compile(optimizer='nadam', loss=custom_loss)
+    model.compile(optimizer=sgd, loss=custom_loss)
     return model
