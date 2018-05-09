@@ -7,7 +7,7 @@ import numpy as np
 from new_start import autoencoder
 
 if __name__ == '__main__':
-    img_rows, img_cols = 224, 224
+    img_rows, img_cols = 320, 320
     channel = 4
 
     model_weights_path = 'models/model.95-0.05.hdf5'
@@ -26,18 +26,18 @@ if __name__ == '__main__':
 
             print('Start processing image: {}'.format(filename))
 
-            x_test = np.empty((1, 224, 224, 4), dtype=np.float32)
+            x_test = np.empty((1, img_rows, img_cols, 4), dtype=np.float32)
             bgr_img = cv.imread(filename)
             rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
             rgb_img = rgb_img / 255.
             x_test[0, :, :, 0:3] = rgb_img
-            x_test[0, :, :, 3] = np.random.uniform(0, 1, (224, 224))
+            x_test[0, :, :, 3] = np.random.uniform(0, 1, (img_rows, img_cols))
             # rgb_img = np.expand_dims(rgb_img, 0)
 
             rep = model.predict(x_test)
             print(rep.shape)
 
-            rep = np.reshape(rep, (224, 224))
+            rep = np.reshape(rep, (img_rows, img_cols))
             rep = rep * 255.0
             rep = rep.astype(np.uint8)
             print(rep)
