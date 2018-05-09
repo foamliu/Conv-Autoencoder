@@ -20,7 +20,7 @@ if __name__ == '__main__':
     args = vars(ap.parse_args())
     filename = args["image"]
     if filename is None:
-        car_ids = ['03198', '07647', '05509']
+        car_ids = ['00133', '06258', '07602']
         for car_id in car_ids:
             filename = 'images/{}.jpg'.format(car_id)
 
@@ -28,6 +28,7 @@ if __name__ == '__main__':
 
             x_test = np.empty((1, img_rows, img_cols, 4), dtype=np.float32)
             bgr_img = cv.imread(filename)
+            gray_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2GRAY)
             rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
             rgb_img = rgb_img / 255.
             x_test[0, :, :, 0:3] = rgb_img
@@ -43,6 +44,7 @@ if __name__ == '__main__':
             print(rep)
             cv.imshow('rep', rep)
             cv.imwrite('images/{}_out.jpg'.format(car_id), rep)
+            cv.imwrite('images/{}_gray.jpg'.format(car_id), gray_img)
             cv.waitKey(0)
             cv.destroyAllWindows()
 

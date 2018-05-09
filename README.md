@@ -64,6 +64,6 @@ $ python demo.py --image images/samples/03198.jpg
 
 Input | GT | Output |
 |---|---|---|
-|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/03198.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/03198_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/03198_out.jpg)|
-|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/05509.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/05509_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/05509_out.jpg)|
-|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07647.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07647_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07647_out.jpg)|
+|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/00133.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/00133_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/00133_out.jpg)|
+|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/06258.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/06258_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/06258_out.jpg)|
+|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07602.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07602_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07602_out.jpg)|
