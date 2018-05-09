@@ -3,13 +3,13 @@ import numpy as np
 from keras.layers import Conv2D
 
 import new_start
-from utils import compile
+from utils import do_compile
 from vgg16 import vgg16_model
 
 
 def migrate_model(img_rows, img_cols, channel=4):
     old_model = vgg16_model(img_rows, img_cols, 3)
-    #print(old_model.summary())
+    # print(old_model.summary())
     old_layers = [l for l in old_model.layers]
     new_model = new_start.autoencoder(img_rows, img_cols, 4)
     new_layers = [l for l in new_model.layers]
@@ -42,7 +42,7 @@ def migrate_model(img_rows, img_cols, channel=4):
     # new_conv6.set_weights([new_W, b])
 
     del old_model
-    compile(new_model)
+    do_compile(new_model)
     return new_model
 
 

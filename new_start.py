@@ -1,8 +1,8 @@
 import keras.backend as K
 from keras.models import Sequential
 
-from utils import build_encoder, build_decoder
-from utils import compile
+from encoder_decoder import build_encoder, build_decoder
+from utils import do_compile
 
 
 def autoencoder(img_rows, img_cols, channel=4):
@@ -11,7 +11,8 @@ def autoencoder(img_rows, img_cols, channel=4):
     build_encoder(model, img_rows, img_cols, channel)
     # Decoder
     build_decoder(model)
-    compile(model)
+    # Compile
+    do_compile(model)
     return model
 
 
