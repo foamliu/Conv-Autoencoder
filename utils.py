@@ -13,7 +13,7 @@ def custom_loss(y_true, y_pred):
 
 
 def load_data():
-    # (num_samples, 224, 224, 4)
+    # (num_samples, 320, 320, 4)
     num_samples = 8144
     train_split = 0.8
     batch_size = 16
@@ -21,10 +21,10 @@ def load_data():
     num_valid = num_samples - num_train
     pb = ProgressBar(total=100, prefix='Loading data', suffix='', decimals=3, length=50, fill='=')
 
-    x_train = np.empty((num_train, 224, 224, 4), dtype=np.float32)
-    y_train = np.empty((num_train, 224, 224, 1), dtype=np.float32)
-    x_valid = np.empty((num_valid, 224, 224, 4), dtype=np.float32)
-    y_valid = np.empty((num_valid, 224, 224, 1), dtype=np.float32)
+    x_train = np.empty((num_train, 320, 320, 4), dtype=np.float32)
+    y_train = np.empty((num_train, 320, 320, 1), dtype=np.float32)
+    x_valid = np.empty((num_valid, 320, 320, 4), dtype=np.float32)
+    y_valid = np.empty((num_valid, 320, 320, 1), dtype=np.float32)
 
     i_train = i_valid = 0
     for root, dirs, files in os.walk("data", topdown=False):
