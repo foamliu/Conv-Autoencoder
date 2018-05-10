@@ -10,7 +10,7 @@ if __name__ == '__main__':
     img_rows, img_cols = 320, 320
     channel = 4
 
-    model_weights_path = 'models/model.95-0.05.hdf5'
+    model_weights_path = 'models/model.58-0.04.hdf5'
     model = autoencoder(img_rows, img_cols, channel)
     model.load_weights(model_weights_path)
     print(model.summary())
