@@ -35,7 +35,7 @@ if __name__ == '__main__':
     autoencoder = Model(input_img, decoded)
     encoder = Model(input_img, encoded)
 
-    autoencoder.compile(optimizer='adam', loss=custom_loss)
+    autoencoder.compile(optimizer='nadam', loss=custom_loss)
 
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
