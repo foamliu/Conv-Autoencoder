@@ -66,3 +66,5 @@ if __name__ == '__main__':
                     shuffle=True,
                     verbose=1,
                     callbacks=callbacks)
+
+    K.clear_session()
