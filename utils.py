@@ -41,7 +41,7 @@ def load_data():
                 i_train += 1
             elif filename.startswith('data/valid'):
                 x_valid[i_valid, :, :, 0:3] = rgb_img / 255.
-                x_valid[i_train, :, :, 3] = np.random.uniform(0, 1, (320, 320))
+                x_valid[i_valid, :, :, 3] = np.random.uniform(0, 1, (320, 320))
                 y_valid[i_valid, :, :, 0] = gray_img / 255.
                 i_valid += 1
 
