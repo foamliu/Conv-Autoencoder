@@ -16,21 +16,28 @@ def custom_loss(y_true, y_pred):
 if __name__ == '__main__':
     input_img = Input(shape=(28, 28, 1))
 
-    x = Conv2D(64, (3, 3), activation='relu', padding='same')(input_img)
+    x = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
+               bias_initializer='zeros')(input_img)
 
     x = MaxPooling2D((2, 2), padding='same')(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
+               bias_initializer='zeros')(x)
     x = MaxPooling2D((2, 2), padding='same')(x)
-    x = Conv2D(256, (3, 3), activation='relu', padding='same')(x)
+    x = Conv2D(256, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
+               bias_initializer='zeros')(x)
     encoded = MaxPooling2D((2, 2), padding='same')(x)
 
-    x = Conv2D(256, (3, 3), activation='relu', padding='same')(encoded)
+    x = Conv2D(256, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
+               bias_initializer='zeros')(encoded)
     x = UpSampling2D((2, 2))(x)
-    x = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
+    x = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
+               bias_initializer='zeros')(x)
     x = UpSampling2D((2, 2))(x)
-    x = Conv2D(64, (3, 3), activation='relu')(x)
+    x = Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_normal',
+               bias_initializer='zeros')(x)
     x = UpSampling2D((2, 2))(x)
-    decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
+    decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same', kernel_initializer='he_normal',
+                     bias_initializer='zeros')(x)
 
     autoencoder = Model(input_img, decoded)
     encoder = Model(input_img, encoded)
