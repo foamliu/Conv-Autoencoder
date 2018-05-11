@@ -3,7 +3,7 @@ import keras.backend as K
 import numpy as np
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 from keras.datasets import mnist
-from keras.layers import Input, Conv2D, UpSampling2D, MaxPooling2D
+from keras.layers import Input, Conv2D, UpSampling2D, MaxPooling2D, BatchNormalization
 from keras.models import Model
 
 
@@ -18,23 +18,29 @@ if __name__ == '__main__':
 
     x = Conv2D(64, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
                bias_initializer='zeros')(input_img)
+    x = BatchNormalization()(x)
 
     x = MaxPooling2D((2, 2), padding='same')(x)
     x = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
                bias_initializer='zeros')(x)
+    x = BatchNormalization()(x)
     x = MaxPooling2D((2, 2), padding='same')(x)
     x = Conv2D(256, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
                bias_initializer='zeros')(x)
+    x = BatchNormalization()(x)
     encoded = MaxPooling2D((2, 2), padding='same')(x)
 
     x = Conv2D(256, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
                bias_initializer='zeros')(encoded)
+    x = BatchNormalization()(x)
     x = UpSampling2D((2, 2))(x)
     x = Conv2D(128, (3, 3), activation='relu', padding='same', kernel_initializer='he_normal',
                bias_initializer='zeros')(x)
+    x = BatchNormalization()(x)
     x = UpSampling2D((2, 2))(x)
     x = Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_normal',
                bias_initializer='zeros')(x)
+    x = BatchNormalization()(x)
     x = UpSampling2D((2, 2))(x)
     decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same', kernel_initializer='he_normal',
                      bias_initializer='zeros')(x)
