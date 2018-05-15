@@ -3,7 +3,7 @@ from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
 import migrate
 from model import create_model
-from utils import load_data
+from utils import load_data, custom_loss
 
 if __name__ == '__main__':
     batch_size = 16
@@ -13,6 +13,7 @@ if __name__ == '__main__':
     # Load our model
     model = create_model()
     migrate.migrate_model(model)
+    model.compile(optimizer='nadam', loss=custom_loss)
 
     print(model.summary())
 
