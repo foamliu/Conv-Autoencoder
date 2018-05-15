@@ -1,11 +1,9 @@
-import os
 import keras
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
-import autoencoder
-import transfer
+import migrate
+from model import create_model
 from utils import load_data
-
 
 if __name__ == '__main__':
     img_rows, img_cols = 224, 224
@@ -15,12 +13,8 @@ if __name__ == '__main__':
     patience = 50
 
     # Load our model
-    model_path = 'model_weights.h5'
-    if os.path.exists(model_path):
-        model = autoencoder.autoencoder(img_rows, img_cols, channel)
-        model.load_weights(model_path)
-    else:
-        model = transfer.autoencoder(img_rows, img_cols, channel)
+    model = create_model()
+    migrate.migrate_model(model)
 
     print(model.summary())
 

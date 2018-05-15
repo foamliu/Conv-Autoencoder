@@ -1,14 +1,16 @@
-from autoencoder import autoencoder
+import argparse
+
 import cv2 as cv
 import numpy as np
-import argparse
+
+from model import create_model
 
 if __name__ == '__main__':
     img_rows, img_cols = 224, 224
     channel = 3
 
     model_weights_path = 'models/model.362-0.06.hdf5'
-    model = autoencoder(img_rows, img_cols, channel)
+    model = create_model()
     model.load_weights(model_weights_path)
 
     ap = argparse.ArgumentParser()
@@ -35,5 +37,3 @@ if __name__ == '__main__':
     cv.imwrite('out.jpg', rep)
     cv.waitKey(0)
     cv.destroyAllWindows()
-
-
