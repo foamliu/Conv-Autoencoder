@@ -14,7 +14,7 @@ def migrate_model(new_model):
     old_conv1_1 = old_model.get_layer('conv1_1')
     old_weights = old_conv1_1.get_weights()[0]
     old_biases = old_conv1_1.get_weights()[1]
-    new_weights = np.zeros((3, 3, 3, 64), dtype=np.float32)
+    new_weights = np.zeros((3, 3, 4, 64), dtype=np.float32)
     new_weights[:, :, 0:3, :] = old_weights
     new_weights[:, :, 3:4, :] = 0.0
     new_conv1_1 = new_model.get_layer('conv1_1')
