@@ -1,20 +1,34 @@
 import keras
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 
+<<<<<<< HEAD
 import migrate
 from model import create_model
+=======
+import new_start
+import migrate
+>>>>>>> 66b86b071e4d5e7bc9b3452559133c54ae30d1bf
 from utils import load_data
 
 if __name__ == '__main__':
-    img_rows, img_cols = 224, 224
-    channel = 3
+    img_rows, img_cols = 320, 320
+    channel = 4
     batch_size = 16
     epochs = 1000
     patience = 50
 
     # Load our model
+<<<<<<< HEAD
     model = create_model()
     migrate.migrate_model(model)
+=======
+    model_path = 'models/model_weights.h5'
+    if os.path.exists(model_path):
+        model = new_start.autoencoder(img_rows, img_cols, channel)
+        model.load_weights(model_path)
+    else:
+        model = migrate.migrate_model(img_rows, img_cols, channel)
+>>>>>>> 66b86b071e4d5e7bc9b3452559133c54ae30d1bf
 
     print(model.summary())
 

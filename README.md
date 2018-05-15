@@ -19,7 +19,7 @@ We use the Cars Dataset, which contains 16,185 images of 196 classes of cars. Th
 You can get it from [Cars Dataset](https://ai.stanford.edu/~jkrause/cars/car_dataset.html):
 
 ```bash
-$ cd Car-Recognition
+$ cd Conv-Autoencoder
 $ wget http://imagenet.stanford.edu/internal/car196/cars_train.tgz
 $ wget http://imagenet.stanford.edu/internal/car196/cars_test.tgz
 $ wget --no-check-certificate https://ai.stanford.edu/~jkrause/cars/car_devkit.tgz
@@ -48,21 +48,22 @@ $ python pre-process.py
 $ python train.py
 ```
 
-### Demo
-Download [pre-trained model] into "models" folder then run:
-
+If you want to visualize during training, run in your terminal:
 ```bash
-$ python demo.py --i [image_path]
+$ tensorboard --logdir path_to_current_dir/logs
 ```
 
-#### Sample 1
+![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/nadam.png)
 
-![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/sample-1.jpg)
- 
-#### Sample 2
+### Demo
+Download pre-trained [model](https://github.com/foamliu/Conv-Autoencoder/releases/download/v1.0/model.226-0.06.hdf5) weights into "models" folder then run:
 
-![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/sample-2.jpg)
- 
-#### Sample 3
+```bash
+$ python demo.py --image images/samples/03198.jpg
+```
 
-![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/sample-3.jpg)
+Input | GT | Output |
+|---|---|---|
+|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/00133.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/00133_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/00133_out.jpg)|
+|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/06258.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/06258_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/06258_out.jpg)|
+|![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07602.jpg)  | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07602_gray.jpg) | ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/07602_out.jpg)|

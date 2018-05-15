@@ -1,39 +1,52 @@
 import argparse
 
 import cv2 as cv
+import keras.backend as K
 import numpy as np
 
 from model import create_model
 
 if __name__ == '__main__':
-    img_rows, img_cols = 224, 224
-    channel = 3
+    img_rows, img_cols = 320, 320
+    channel = 4
 
     model_weights_path = 'models/model.362-0.06.hdf5'
     model = create_model()
+
     model.load_weights(model_weights_path)
+    print(model.summary())
 
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--image", help="path to the image file")
     args = vars(ap.parse_args())
-
     filename = args["image"]
     if filename is None:
-        filename = 'images/samples/05509.jpg'
+        car_ids = ['00133', '06258', '07602']
+        for car_id in car_ids:
+            filename = 'images/{}.jpg'.format(car_id)
 
-    bgr_img = cv.imread(filename)
-    rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
-    rgb_img = rgb_img / 255.
-    rgb_img = np.expand_dims(rgb_img, 0)
+            print('Start processing image: {}'.format(filename))
 
-    rep = model.predict(rgb_img)
-    print(rep.shape)
+            x_test = np.empty((1, img_rows, img_cols, 4), dtype=np.float32)
+            bgr_img = cv.imread(filename)
+            gray_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2GRAY)
+            rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
+            rgb_img = rgb_img / 255.
+            x_test[0, :, :, 0:3] = rgb_img
+            x_test[0, :, :, 3] = np.random.uniform(0, 1, (img_rows, img_cols))
+            # rgb_img = np.expand_dims(rgb_img, 0)
 
-    rep = np.reshape(rep, (224, 224))
-    rep = rep * 255.0
-    rep = rep.astype(np.uint8)
-    print(rep)
-    cv.imshow('rep', rep)
-    cv.imwrite('out.jpg', rep)
-    cv.waitKey(0)
-    cv.destroyAllWindows()
+            rep = model.predict(x_test)
+            print(rep.shape)
+
+            rep = np.reshape(rep, (img_rows, img_cols))
+            rep = rep * 255.0
+            rep = rep.astype(np.uint8)
+            print(rep)
+            cv.imshow('rep', rep)
+            cv.imwrite('images/{}_out.jpg'.format(car_id), rep)
+            cv.imwrite('images/{}_gray.jpg'.format(car_id), gray_img)
+            cv.waitKey(0)
+            cv.destroyAllWindows()
+
+    K.clear_session()
