@@ -6,7 +6,7 @@ from vgg16 import vgg16_model
 
 
 def migrate_model(new_model):
-    old_model = vgg16_model(320, 320, 3)
+    old_model = vgg16_model(224, 224, 3)
     # print(old_model.summary())
     old_layers = [l for l in old_model.layers]
     new_layers = [l for l in new_model.layers]
