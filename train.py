@@ -1,5 +1,6 @@
 import keras
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
+from keras.optimizers import SGD
 
 import migrate
 from model import create_model
@@ -13,7 +14,9 @@ if __name__ == '__main__':
     # Load our model
     model = create_model()
     migrate.migrate_model(model)
-    model.compile(optimizer='nadam', loss=custom_loss)
+    # model.compile(optimizer='nadam', loss=custom_loss)
+    sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
+    model.compile(optimizer=sgd, loss=custom_loss)
 
     print(model.summary())
 
