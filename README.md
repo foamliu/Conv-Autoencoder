@@ -56,11 +56,13 @@ $ tensorboard --logdir path_to_current_dir/logs
 ![image](https://github.com/foamliu/Conv-Autoencoder/raw/master/images/nadam.png)
 
 ### Demo
-Download pre-trained [model](https://github.com/foamliu/Conv-Autoencoder/releases/download/v1.0/model.226-0.06.hdf5) weights into "models" folder then run:
+Download pre-trained [model](https://github.com/foamliu/Conv-Autoencoder/releases/download/v1.0/model.97-0.0201.hdf5) weights into "models" folder then run:
 
 ```bash
-$ python demo.py --image images/samples/03198.jpg
+$ python demo.py
 ```
+
+Then check results in images folder, something like:
 
 Input | GT | Output |
 |---|---|---|
